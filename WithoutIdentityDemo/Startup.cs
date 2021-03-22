@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +24,12 @@ namespace WithoutIdentityDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSession(options=>{
+                options.Cookie.Name = "WithSessionId"; //設定Cookie的Name名稱
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always; //只允許HTTPS讀取Cookie
+                options.Cookie.SameSite = SameSiteMode.Lax; //限制第三方Cookie使用
+                options.IdleTimeout = TimeSpan.FromSeconds(10); //設定Session有效時間
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +48,8 @@ namespace WithoutIdentityDemo
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
