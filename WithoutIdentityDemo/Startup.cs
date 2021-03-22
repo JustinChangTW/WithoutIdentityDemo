@@ -28,7 +28,7 @@ namespace WithoutIdentityDemo
                 options.Cookie.Name = "WithSessionId"; //設定Cookie的Name名稱
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always; //只允許HTTPS讀取Cookie
                 options.Cookie.SameSite = SameSiteMode.Lax; //限制第三方Cookie使用
-                options.IdleTimeout = TimeSpan.FromSeconds(10); //設定Session有效時間
+                options.IdleTimeout = TimeSpan.FromSeconds(30); //設定Session有效時間
             });
         }
 
