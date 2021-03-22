@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,12 @@ namespace WithoutIdentityDemo.Controllers
 
         public IActionResult Privacy()
         {
+            var us = HttpContext.Session.GetString("User");
+            var pd = HttpContext.Session.GetString("Password");
+
+            HttpContext.Session.SetString("User", "Demo");
+            HttpContext.Session.SetString("Password", "123");
+
             return View();
         }
 
