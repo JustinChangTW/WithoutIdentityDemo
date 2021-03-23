@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using WithoutIdentityDemo.Authorizations;
 using WithoutIdentityDemo.Models;
 
 namespace WithoutIdentityDemo.Controllers
@@ -24,6 +25,7 @@ namespace WithoutIdentityDemo.Controllers
             return View();
         }
 
+        [SessionAuthorize]
         public IActionResult Privacy()
         {
             var us = HttpContext.Session.GetString("User");

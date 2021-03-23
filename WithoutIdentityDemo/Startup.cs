@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WithoutIdentityDemo.Middleware;
 
 namespace WithoutIdentityDemo
 {
@@ -50,6 +51,8 @@ namespace WithoutIdentityDemo
             app.UseAuthorization();
 
             app.UseSession();
+
+            app.UseMiddleware<SessionAuthorizeMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using WithoutIdentityDemo.Models;
 using WithoutIdentityDemo.Extensions;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace WithoutIdentityDemo.Controllers
 {
@@ -15,7 +17,7 @@ namespace WithoutIdentityDemo.Controllers
         {
             return View();
         }
-        public IActionResult Login(LoginModel login)
+        public async Task<IActionResult> Login(LoginModel login)
         {
             if(login.Badge=="Justin" && login.CipherCode == "1234567890")
             {
@@ -23,8 +25,9 @@ namespace WithoutIdentityDemo.Controllers
                 HttpContext.Session.Set(new UserInfo()
                 {
                     Name = login.Badge,
-                    Role = "administraotr"
+                    Role = "administrator"
                 });
+
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
             return View(nameof(AccountController.Index), login);
