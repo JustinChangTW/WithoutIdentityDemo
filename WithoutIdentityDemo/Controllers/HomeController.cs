@@ -20,6 +20,7 @@ namespace WithoutIdentityDemo.Controllers
 
         public IActionResult Index()
         {
+            HttpContext.Response.Cookies.Append("Key", "Value");
             return View();
         }
 
