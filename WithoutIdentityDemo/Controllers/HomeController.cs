@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using WithoutIdentityDemo.Extensions;
 using WithoutIdentityDemo.Models;
 
 namespace WithoutIdentityDemo.Controllers
@@ -26,6 +27,12 @@ namespace WithoutIdentityDemo.Controllers
 
         public IActionResult Privacy()
         {
+            var value = HttpContext.Request.Cookies.SingleOrDefault(x => x.Key == "auth_token").Value;
+            var decode = value.ToDecode();
+
+            if (decode != "Justin")
+                return RedirectToAction(nameof(AccountController.Index));
+
             return View();
         }
 

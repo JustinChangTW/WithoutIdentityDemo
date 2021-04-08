@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using WithoutIdentityDemo.Extensions;
 using WithoutIdentityDemo.Models;
 
 namespace WithoutIdentityDemo.Controllers
@@ -23,26 +24,8 @@ namespace WithoutIdentityDemo.Controllers
             
             if (data.Badge == "Justin" && data.CipherCode == "1111111111")
             {
-
                 //加密
-                var encode = "";
-                var aes = new AesCryptoServiceProvider();
-                SHA256CryptoServiceProvider sha256 = new SHA256CryptoServiceProvider();
-                MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-
-                byte[] key = sha256.ComputeHash(Encoding.ASCII.GetBytes("12345678"));
-                byte[] iv = md5.ComputeHash(Encoding.ASCII.GetBytes("12345678"));
-                aes.Key = key;
-                aes.IV = iv;
-                var dataArray = Encoding.UTF8.GetBytes(data.Badge);
-                using (var ms = new MemoryStream())
-                using (var cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
-                {
-                    cs.Write(dataArray, 0, dataArray.Length);
-                    cs.FlushFinalBlock();
-                    encode = Convert.ToBase64String(dataArray.ToArray());
-                }
-
+                var encode = data.Badge.ToAesEncode();
 
                 HttpContext.Response.Cookies.Append("auth_token",encode,
                     new CookieOptions
