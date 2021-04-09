@@ -76,7 +76,7 @@ namespace WithoutIdentityDemo.Extensions
             catch(Exception ex)
             {
 
-                encode = ex.Message;
+                encode = "";
             }
 
             return encode;

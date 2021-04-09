@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WithoutIdentityDemo.Middleware;
 
 namespace WithoutIdentityDemo
 {
@@ -41,6 +42,8 @@ namespace WithoutIdentityDemo
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<LoginControllMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
